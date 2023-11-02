@@ -34,9 +34,9 @@
   },
   "inbounds": [
     {
-      "type": "tun",
-      "inet4_address": "172.19.0.1/30",
-      "auto_route": true,
+      "type": "mixed",
+      "tag": "mixed-in",
+      "listen": "::",
       "sniff": true
     }
   ],
