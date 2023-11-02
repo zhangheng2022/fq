@@ -30,6 +30,11 @@
         "server": "local"
       }
     ],
+    "fakeip": {
+      "enabled": true,
+      "inet4_range": "198.18.0.0/15",
+      "inet6_range": "fc00::/18"
+    },
     "strategy": "ipv4_only"
   },
   "inbounds": [
@@ -89,6 +94,7 @@
         "outbound": "block"
       }
     ],
-    "auto_detect_interface": true
+    "auto_detect_interface": true,
+    "override_android_vpn": true
   }
 }
