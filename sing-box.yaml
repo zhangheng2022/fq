@@ -45,7 +45,7 @@
       "type": "hysteria2",
       "tag": "proxy",
       "server": "206.237.3.61",
-      "server_port": 443,
+      "server_port": "20000-50000",
       "up_mbps": 20,
       "down_mbps": 100,
       "password": "lhsgdd123",
