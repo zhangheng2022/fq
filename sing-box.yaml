@@ -40,7 +40,7 @@
       "inet4_range": "198.18.0.0/15",
       "inet6_range": "fc00::/18"
     },
-    "strategy": "prefer_ipv4"
+    "strategy": "ipv4_only"
   },
   "inbounds": [
     {
@@ -48,7 +48,6 @@
       "tag": "tun-in",
       "interface_name": "tun0",
       "inet4_address": "172.19.0.1/30",
-      "inet6_address": "fdfe:dcba:9876::1/126",
       "auto_route": true,
       "sniff": true
     }
@@ -62,7 +61,6 @@
       "up_mbps": 20,
       "down_mbps": 100,
       "password": "lhsgdd123",
-      "domain_strategy": "prefer_ipv4",
       "tls": {
         "enabled": true,
         "server_name": "vpn.zhangheng.eu.org"
