@@ -81,6 +81,14 @@
     }
   ],
   "route": {
+    "geoip": {
+       "path": "geoip.dat",
+       "download_url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geoip.dat",
+    },
+    "geosite": {
+       "path": "geosite.dat",
+       "download_url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geosite.dat",
+    },
     "rules": [
       {
         "protocol": "dns",
