@@ -62,7 +62,7 @@
       "up_mbps": 20,
       "down_mbps": 100,
       "password": "lhsgdd123",
-      "domain_strategy": "prefer_ipv4"
+      "domain_strategy": "prefer_ipv4",
       "tls": {
         "enabled": true,
         "server_name": "vpn.zhangheng.eu.org"
