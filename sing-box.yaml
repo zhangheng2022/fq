@@ -81,10 +81,6 @@
     }
   ],
   "route": {
-    "geoip": {
-       "path": "geoip.dat",
-       "download_url": "https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/Country.mmdb"
-    },
     "rules": [
       {
         "protocol": "dns",
