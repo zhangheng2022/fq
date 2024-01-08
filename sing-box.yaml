@@ -168,7 +168,7 @@
         "format": "binary",
         "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-geolocation-!cn.srs"
       }
-    ]
+    ],
     "auto_detect_interface": true
   }
 }
