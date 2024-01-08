@@ -7,7 +7,7 @@
   "dns": {
     "servers": [
       {
-        "tag": "cf",
+        "tag": "cloudflare",
         "address": "https://1.1.1.1/dns-query"
       },
       {
@@ -16,23 +16,21 @@
         "detour": "direct"
       },
       {
-        "tag": "block",
-        "address": "rcode://success"
+        "tag": "remote",
+        "address": "fakeip"
       }
     ],
     "rules": [
-      {
-        "geosite": "category-ads-all",
-        "server": "block",
-        "disable_cache": true
-      },
       {
         "outbound": "any",
         "server": "local"
       },
       {
-        "geosite": "cn",
-        "server": "local"
+        "query_type": [
+          "A",
+          "AAAA"
+        ],
+        "server": "remote"
       }
     ],
     "fakeip": {
@@ -40,16 +38,15 @@
       "inet4_range": "198.18.0.0/15",
       "inet6_range": "fc00::/18"
     },
-    "strategy": "ipv4_only"
+    "independent_cache": true
   },
   "inbounds": [
     {
       "type": "tun",
-      "tag": "tun-in",
-      "interface_name": "tun0",
       "inet4_address": "172.19.0.1/30",
+      "inet6_address": "fdfe:dcba:9876::1/126",
       "auto_route": true,
-      "sniff": true
+      "strict_route": true
     }
   ],
   "outbounds": [
@@ -71,10 +68,6 @@
       "tag": "direct"
     },
     {
-      "type": "block",
-      "tag": "block"
-    },
-    {
       "type": "dns",
       "tag": "dns-out"
     }
@@ -82,23 +75,85 @@
   "route": {
     "rules": [
       {
-        "protocol": "dns",
-        "outbound": "dns-out"
+        "type": "logical",
+        "mode": "or",
+        "rules": [
+          {
+            "protocol": "dns"
+          },
+          {
+            "port": 53
+          }
+        ],
+        "outbound": "dns"
       },
       {
-        "geosite": "cn",
-        "geoip": [
-          "private",
-          "cn"
-        ],
+        "ip_is_private": true,
         "outbound": "direct"
       },
       {
-        "geosite": "category-ads-all",
+        "clash_mode": "Direct",
+        "outbound": "direct"
+      },
+      {
+        "clash_mode": "Global",
+        "outbound": "default"
+      },
+      {
+        "type": "logical",
+        "mode": "or",
+        "rules": [
+          {
+            "port": 853
+          },
+          {
+            "network": "udp",
+            "port": 443
+          },
+          {
+            "protocol": "stun"
+          }
+        ],
         "outbound": "block"
+      },
+      {
+        "type": "logical",
+        "mode": "and",
+        "rules": [
+          {
+            "rule_set": "geosite-geolocation-!cn",
+            "invert": true
+          },
+          {
+            "rule_set": [
+              "geoip-cn",
+              "geosite-cn"
+            ]
+          }
+        ],
+        "outbound": "direct"
       }
     ],
-    "auto_detect_interface": true,
-    "override_android_vpn": true
+    "rule_set": [
+      {
+        "type": "remote",
+        "tag": "geoip-cn",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-cn",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-cn.srs"
+      },
+      {
+        "type": "remote",
+        "tag": "geosite-geolocation-!cn",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-geolocation-!cn.srs"
+      }
+    ]
+    "auto_detect_interface": true
   }
 }
