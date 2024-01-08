@@ -103,7 +103,7 @@
       },
       {
         "clash_mode": "Global",
-        "outbound": "proxy"
+        "outbound": "direct"
       },
       {
         "type": "logical",
